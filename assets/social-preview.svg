@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Community Tool Library</title>
+  <desc id="desc">Borrow what you need and share what you own with people and browser agents working together.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff8ec"/><stop offset="1" stop-color="#d8eee8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="90" r="190" fill="#ff7653" opacity=".10"/>
+  <circle cx="1050" cy="90" r="115" fill="none" stroke="#ff7653" stroke-width="36" opacity=".16"/>
+  <rect x="80" y="70" width="1040" height="490" rx="42" fill="#fff" opacity=".72" stroke="#163d36" stroke-opacity=".10"/>
+  <rect x="120" y="110" width="72" height="72" rx="22" fill="#163d36"/>
+  <path d="m140 148 12 12 23-31" fill="none" stroke="#f5c453" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="214" y="140" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#163d36">COMMUNITY TOOL LIBRARY</text>
+  <text x="214" y="169" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#4d645f">A WebMCP Challenge project</text>
+  <text x="120" y="294" font-family="Georgia, serif" font-size="72" font-weight="500" fill="#163d36">Borrow what you need.</text>
+  <text x="120" y="380" font-family="Georgia, serif" font-size="72" font-style="italic" fill="#e45d3c">Share what you own.</text>
+  <text x="120" y="449" font-family="Arial, sans-serif" font-size="25" fill="#4d645f">A human-first, agent-ready lending library for useful things nearby.</text>
+  <rect x="120" y="486" width="270" height="48" rx="24" fill="#163d36"/>
+  <circle cx="149" cy="510" r="6" fill="#60d394"/>
+  <text x="169" y="518" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff">WebMCP tools included</text>
+  <g transform="translate(820 230)">
+    <rect x="0" y="0" width="230" height="190" rx="35" fill="#163d36"/>
+    <path d="M35 72h100c18 0 33 15 33 33v25H75c-22 0-40-18-40-40V72Z" fill="#ff7653"/>
+    <path d="M82 130h48l-11 54H75l7-54Z" fill="#f5c453"/>
+    <path d="M135 82h68v34h-68z" fill="#d8eee8"/>
+    <circle cx="69" cy="98" r="14" fill="#fff8ec"/><circle cx="69" cy="98" r="6" fill="#163d36"/>
+  </g>
+</svg>

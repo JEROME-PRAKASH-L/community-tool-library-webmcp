@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'self'; form-action 'self'"
+    />
+    <meta name="theme-color" content="#163d36" />
+    <meta
+      name="description"
+      content="Borrow useful tools from trusted people nearby. An agent-ready community lending library powered by WebMCP."
+    />
+    <meta property="og:title" content="Community Tool Library" />
+    <meta
+      property="og:description"
+      content="A human-first, agent-ready way to borrow and share useful tools nearby."
+    />
+    <meta property="og:image" content="./assets/social-preview.svg" />
+    <title>Community Tool Library — Borrow nearby</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <button class="brand" type="button" data-view="browse" aria-label="Community Tool Library home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="img">
+              <path d="M8 13.5 20 6l12 7.5v13L20 34 8 26.5v-13Z" fill="currentColor" opacity=".16" />
+              <path d="m13 22 5 5 10-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span>
+            <strong>Community Tool Library</strong>
+            <small>Borrow better. Waste less.</small>
+          </span>
+        </button>
+
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <button class="nav-link is-active" type="button" data-view="browse">Browse tools</button>
+          <button class="nav-link" type="button" data-view="loans">
+            My borrowing
+            <span class="nav-count" id="reservation-count" aria-label="0 active reservations">0</span>
+          </button>
+          <button class="nav-link" type="button" data-view="how">How it works</button>
+        </nav>
+
+        <div class="header-actions">
+          <span class="agent-ready-badge">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            Agent-ready
+          </span>
+          <button class="button button-dark button-small" type="button" data-open-listing>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" /></svg>
+            List a tool
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="page-view" id="browse-view" data-page="browse">
+        <section class="hero">
+          <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+          <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+          <div class="shell hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-icon" aria-hidden="true">✦</span>
+                Shared locally · Ready when you are
+              </div>
+              <h1>Borrow what you need.<br /><span>Share what you own.</span></h1>
+              <p>
+                Find trusted tools nearby without buying something you will use once. Search yourself—or ask your browser agent to handle the details.
+              </p>
+
+              <form class="hero-search" id="hero-search-form" role="search">
+                <label class="sr-only" for="hero-query">Search tools or describe a task</label>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16.5 16.5 4 4" /></svg>
+                <input
+                  id="hero-query"
+                  name="query"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Try “drill”, “fix my bike”, or “movie night”"
+                />
+                <button class="button button-coral" type="submit">Find a tool</button>
+              </form>
+
+              <div class="hero-suggestions" aria-label="Popular searches">
+                <span>Popular:</span>
+                <button type="button" data-quick-search="drill">Drill</button>
+                <button type="button" data-quick-search="projector">Projector</button>
+                <button type="button" data-quick-search="garden">Garden set</button>
+              </div>
+
+              <dl class="hero-stats" aria-label="Community statistics">
+                <div><dt>248</dt><dd>tools shared</dd></div>
+                <div><dt>1,340</dt><dd>items kept in use</dd></div>
+                <div><dt>4.9</dt><dd>community rating</dd></div>
+              </dl>
+            </div>
+
+            <aside class="agent-card" aria-labelledby="agent-card-title">
+              <div class="agent-card-top">
+                <div class="agent-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 28 28"><path d="M8 8.5h12a4 4 0 0 1 4 4V18a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5.5a4 4 0 0 1 4-4Z" /><path d="M14 4v4.5M10 15h.01M18 15h.01M10 19h8" /></svg>
+                </div>
+                <div>
+                  <p class="overline">WebMCP assistant</p>
+                  <h2 id="agent-card-title">Your agent can help</h2>
+                </div>
+                <span class="status-pill" id="webmcp-indicator"><span></span>Checking</span>
+              </div>
+
+              <div class="agent-prompt">
+                <span class="quote-mark" aria-hidden="true">“</span>
+                <p>Find a highly rated cordless drill within 5 km, available tomorrow, with a deposit below ₹600.</p>
+              </div>
+
+              <ol class="agent-plan" aria-label="Example agent plan">
+                <li class="is-complete">
+                  <span>1</span>
+                  <div><strong>Search nearby tools</strong><small>Uses structured filters</small></div>
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3 3 7-7" /></svg>
+                </li>
+                <li>
+                  <span>2</span>
+                  <div><strong>Check availability</strong><small>Verifies dates and deposit</small></div>
+                </li>
+                <li>
+                  <span>3</span>
+                  <div><strong>Ask before reserving</strong><small>You keep final control</small></div>
+                </li>
+              </ol>
+
+              <button class="button button-agent" id="agent-demo-button" type="button">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6V4Z" /></svg>
+                Run the guided agent demo
+              </button>
+              <p class="agent-status-copy" id="webmcp-status-text">Checking browser support…</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="catalogue shell" aria-labelledby="catalogue-title">
+          <div class="catalogue-heading">
+            <div>
+              <p class="section-kicker">Explore the library</p>
+              <h2 id="catalogue-title">Useful things, already nearby</h2>
+              <p id="result-count" aria-live="polite">Showing all tools</p>
+            </div>
+            <button class="button button-outline filter-toggle" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M6 10h8M8 15h4" /></svg>
+              Filters
+            </button>
+          </div>
+
+          <div class="catalogue-layout">
+            <aside class="filters" id="filter-panel" aria-label="Filter tools">
+              <form id="filters-form">
+                <div class="filter-header">
+                  <strong>Refine results</strong>
+                  <button type="reset">Reset</button>
+                </div>
+
+                <fieldset>
+                  <legend>Category</legend>
+                  <div class="category-options" id="category-options"></div>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Pickup distance</legend>
+                  <label class="range-label" for="distance-filter">
+                    Within <strong id="distance-output">10 km</strong>
+                  </label>
+                  <input id="distance-filter" name="distance" type="range" min="1" max="10" value="10" />
+                  <div class="range-scale" aria-hidden="true"><span>1 km</span><span>10 km</span></div>
+                </fieldset>
+
+                <label class="switch-row" for="available-filter">
+                  <span><strong>Available now</strong><small>Hide currently borrowed tools</small></span>
+                  <span class="switch"><input id="available-filter" name="available" type="checkbox" /><span></span></span>
+                </label>
+
+                <div class="filter-note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.8 3 8 7.5 9.5 4.5-1.5 7.5-4.7 7.5-9.5V6L12 3Z" /><path d="m9 12 2 2 4-4" /></svg>
+                  <p><strong>Trust built in</strong><span>Profiles, condition notes, and deposits make sharing safer.</span></p>
+                </div>
+              </form>
+            </aside>
+
+            <div class="catalogue-results">
+              <div class="active-filter-row" id="active-filters" aria-live="polite"></div>
+              <div class="tool-grid" id="tool-grid"></div>
+              <div class="empty-state" id="empty-tools" hidden>
+                <span aria-hidden="true">⌕</span>
+                <h3>No tools match yet</h3>
+                <p>Try a broader search or increase your pickup distance.</p>
+                <button class="button button-dark" type="button" data-reset-filters>Clear filters</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="agent-activity-section shell" aria-labelledby="activity-title">
+          <div class="activity-copy">
+            <p class="section-kicker">Built for people + agents</p>
+            <h2 id="activity-title">Every agent action stays visible</h2>
+            <p>
+              WebMCP gives the browser structured tools instead of forcing an agent to guess through buttons. Read-only searches can run quickly; reservations always stop for your approval.
+            </p>
+            <div class="tool-chip-row" id="registered-tools" aria-label="Available WebMCP tools"></div>
+          </div>
+          <div class="activity-panel">
+            <div class="activity-panel-header">
+              <div><span class="live-dot" aria-hidden="true"></span><strong>Agent activity</strong></div>
+              <button type="button" id="clear-demo-data">Reset demo</button>
+            </div>
+            <div class="activity-list" id="activity-list" aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page-view shell interior-view" id="loans-view" data-page="loans" hidden>
+        <div class="interior-heading">
+          <div>
+            <p class="section-kicker">Your borrowing</p>
+            <h1>Reservations and returns</h1>
+            <p>Everything you have reserved—whether you did it yourself or asked an agent.</p>
+          </div>
+          <button class="button button-dark" type="button" data-view="browse">Browse more tools</button>
+        </div>
+        <div class="reservation-list" id="reservation-list"></div>
+        <div class="empty-state empty-reservations" id="empty-reservations">
+          <span aria-hidden="true">↗</span>
+          <h2>Your borrowing shelf is empty</h2>
+          <p>Reserve a tool and it will appear here with its pickup details.</p>
+          <button class="button button-coral" type="button" data-view="browse">Find something useful</button>
+        </div>
+      </section>
+
+      <section class="page-view shell interior-view" id="how-view" data-page="how" hidden>
+        <div class="interior-heading narrow-heading">
+          <div>
+            <p class="section-kicker">Human-first automation</p>
+            <h1>A clearer way for agents to use the web</h1>
+            <p>Community Tool Library exposes explicit browser tools while keeping the interface and every important decision in front of you.</p>
+          </div>
+        </div>
+        <div class="how-grid">
+          <article><span>01</span><h2>Describe the outcome</h2><p>Ask naturally: “Find a drill near me for Saturday.” The agent translates your request into typed filters.</p></article>
+          <article><span>02</span><h2>Review live results</h2><p>The same catalogue updates for you and the agent. Nothing disappears into a hidden backend workflow.</p></article>
+          <article><span>03</span><h2>Keep control</h2><p>State-changing actions open a visible confirmation. You approve the dates, price, deposit, and lender note.</p></article>
+        </div>
+        <div class="webmcp-explainer">
+          <div>
+            <p class="section-kicker">Why WebMCP</p>
+            <h2>Structured tools beat brittle clicking</h2>
+            <p>Each tool declares a clear name, description, JSON input schema, execution behavior, and security hints. The browser mediates discovery and invocation.</p>
+          </div>
+          <pre><code>document.modelContext.registerTool({
+  name: "search_community_tools",
+  description: "Search nearby shared tools",
+  inputSchema: { /* typed filters */ },
+  annotations: { readOnlyHint: true },
+  execute: searchTools
+});</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><path d="M8 13.5 20 6l12 7.5v13L20 34 8 26.5v-13Z" fill="currentColor" opacity=".16" /><path d="m13 22 5 5 10-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </span>
+          <div><strong>Community Tool Library</strong><p>A WebMCP Challenge project.</p></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/JEROME-PRAKASH-L/community-tool-library-webmcp" target="_blank" rel="noreferrer">Source code</a>
+          <a href="https://developer.chrome.com/docs/ai/webmcp" target="_blank" rel="noreferrer">About WebMCP</a>
+          <button type="button" data-open-listing>Share a tool</button>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="is-active" type="button" data-view="browse"><span aria-hidden="true">⌂</span>Browse</button>
+      <button type="button" data-view="loans"><span aria-hidden="true">▣</span>Borrowing</button>
+      <button type="button" data-view="how"><span aria-hidden="true">✦</span>WebMCP</button>
+      <button type="button" data-open-listing><span aria-hidden="true">＋</span>List tool</button>
+    </nav>
+
+    <dialog class="modal tool-modal" id="tool-dialog" aria-labelledby="tool-dialog-title">
+      <div id="tool-dialog-content"></div>
+    </dialog>
+
+    <dialog class="modal confirmation-modal" id="confirmation-dialog" aria-labelledby="confirmation-title">
+      <form method="dialog" id="confirmation-form">
+        <button class="modal-close" value="cancel" type="submit" aria-label="Close confirmation">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
+        </button>
+        <div class="confirmation-icon" id="confirmation-icon" aria-hidden="true">✓</div>
+        <p class="section-kicker" id="confirmation-kicker">Human confirmation</p>
+        <h2 id="confirmation-title">Approve this action?</h2>
+        <p id="confirmation-copy"></p>
+        <div class="confirmation-summary" id="confirmation-summary"></div>
+        <div class="modal-actions">
+          <button class="button button-ghost" value="cancel" type="submit">Not now</button>
+          <button class="button button-coral" value="confirm" type="submit" id="confirmation-approve">Approve reservation</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal listing-modal" id="listing-dialog" aria-labelledby="listing-title">
+      <form
+        id="list-tool-form"
+        toolname="list_community_tool"
+        tooldescription="Fill in a new community tool listing. The user reviews and manually submits the visible form."
+      >
+        <button class="modal-close" type="button" data-close-dialog aria-label="Close listing form">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
+        </button>
+        <p class="section-kicker">Grow the shared library</p>
+        <h2 id="listing-title">List a useful tool</h2>
+        <p class="form-intro">Add the basics now. You can keep the tool at home until a reservation is confirmed.</p>
+
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>Tool name</span>
+            <input name="name" required minlength="3" maxlength="80" placeholder="e.g. Cordless drill" toolparamdescription="Clear name of the tool being offered." />
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <select name="category" required toolparamdescription="Best matching tool category.">
+              <option>Power tools</option><option>Home &amp; repair</option><option>Creative</option><option>Electronics</option><option>Garden</option><option>Mobility</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Condition</span>
+            <select name="condition" required toolparamdescription="Current physical condition of the tool.">
+              <option>Excellent</option><option>Very good</option><option>Good</option>
+            </select>
+          </label>
+          <label class="field field-wide">
+            <span>Description</span>
+            <textarea name="description" required minlength="10" maxlength="360" rows="4" placeholder="What is included, and what jobs is it suitable for?" toolparamdescription="Useful description including accessories and suitable tasks."></textarea>
+          </label>
+          <label class="field">
+            <span>Pickup area</span>
+            <input name="neighborhood" required maxlength="60" placeholder="Neighbourhood" toolparamdescription="Public neighbourhood for pickup, not an exact address." />
+          </label>
+          <label class="field">
+            <span>Daily contribution (₹)</span>
+            <input name="pricePerDay" type="number" min="0" max="5000" value="50" required toolparamdescription="Daily contribution in Indian rupees." />
+          </label>
+          <label class="field">
+            <span>Refundable deposit (₹)</span>
+            <input name="deposit" type="number" min="0" max="20000" value="500" required toolparamdescription="Refundable security deposit in Indian rupees." />
+          </label>
+          <label class="field field-wide">
+            <span>Care instructions</span>
+            <input name="rules" maxlength="180" placeholder="e.g. Return fully charged" toolparamdescription="Short handling or return instructions." />
+          </label>
+        </div>
+        <div class="form-privacy-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.8 3 8 7.5 9.5 4.5-1.5 7.5-4.7 7.5-9.5V6L12 3Z" /></svg>
+          Exact addresses are never shown publicly. Pickup details are shared after confirmation.
+        </div>
+        <div class="modal-actions">
+          <button class="button button-ghost" type="button" data-close-dialog>Cancel</button>
+          <button class="button button-coral" type="submit">Publish tool</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

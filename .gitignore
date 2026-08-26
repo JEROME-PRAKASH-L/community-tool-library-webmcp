@@ -1,0 +1,5 @@
+.DS_Store
+Thumbs.db
+.devpost-hackathon-state.json
+coverage/
+*.log
