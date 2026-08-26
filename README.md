@@ -125,7 +125,9 @@ This hackathon build uses realistic local demo data and browser storage. It does
 
 ## Deployment
 
-The included GitHub Actions workflow publishes the static project to GitHub Pages after Pages is configured to use **GitHub Actions** in repository settings.
+Live production site: [community-tool-library-webmcp.vercel.app](https://community-tool-library-webmcp.vercel.app/)
+
+The GitHub Actions workflow runs the full JavaScript and WebMCP contract test suite on every push to `main`. The production build is hosted on Vercel, with this public repository as the source of truth.
 
 ## Documentation
 
