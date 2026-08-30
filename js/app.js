@@ -336,8 +336,18 @@ function renderActivity() {
 }
 
 function renderToolChips(definitions = []) {
-  const names = [...definitions.map((tool) => tool.name), "list_community_tool"];
+  const names = definitions.map((tool) => tool.name);
   elements.registeredTools.innerHTML = names.map((name) => `<span class="tool-chip">${escapeHTML(name)}</span>`).join("");
+}
+
+function prepareListingForm(input = {}) {
+  Object.entries(input).forEach(([name, value]) => {
+    const control = elements.listToolForm.elements.namedItem(name);
+    if (control && value !== undefined && value !== null) control.value = String(value);
+  });
+  if (!elements.listingDialog.open) elements.listingDialog.showModal();
+  elements.listToolForm.elements.namedItem("name")?.focus();
+  showToast("Your agent prepared the listing. Review it before publishing.", "AI");
 }
 
 function showToast(message, icon = "✓") {
@@ -543,13 +553,14 @@ async function initializeWebMCP() {
       setView("browse");
       renderTools(results);
     },
+    onPrepareListing: prepareListingForm,
   });
 
   renderToolChips(ui.webmcp.definitions);
   if (ui.webmcp.supported) {
     elements.webmcpIndicator.classList.add("is-native");
     elements.webmcpIndicator.innerHTML = "<span></span>Live";
-    elements.webmcpStatus.textContent = `${ui.webmcp.registered.length} imperative tools registered with this browser, plus one declarative listing tool.`;
+    elements.webmcpStatus.textContent = `${ui.webmcp.registered.length} imperative tools registered with this browser.`;
   } else {
     elements.webmcpIndicator.innerHTML = "<span></span>Preview";
     elements.webmcpStatus.textContent = "WebMCP is not enabled here. The guided demo executes the same tool handlers locally.";

@@ -36,7 +36,7 @@ Use these prompts in ChatGPT’s in-app browser or Chrome with WebMCP enabled.
 
 **Prompt:** Help me list a soldering iron for ₹40 per day with a ₹300 deposit in Anna Nagar.
 
-**Expected:** The browser invokes `list_community_tool`, focuses and fills the visible form, and waits for the user to review and click Publish.
+**Expected:** The browser invokes the imperative `list_community_tool`, opens and fills the visible form, and waits for the user to review and click Publish.
 
 ## Negative and boundary cases
 

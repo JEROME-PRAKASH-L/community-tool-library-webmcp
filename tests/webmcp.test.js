@@ -23,6 +23,7 @@ test("tool definitions expose concise schemas and security annotations", () => {
       "reserve_tool",
       "list_my_reservations",
       "cancel_reservation",
+      "list_community_tool",
     ],
   );
   definitions.forEach((tool) => {
@@ -31,6 +32,25 @@ test("tool definitions expose concise schemas and security annotations", () => {
     assert.equal(typeof tool.annotations.readOnlyHint, "boolean");
     assert.equal(tool.annotations.untrustedContentHint, true);
   });
+});
+
+test("listing tool prepares the visible form without creating a listing", async () => {
+  const store = createStore(memoryStorage());
+  const before = store.getState().tools.length;
+  let preparedInput;
+  const definitions = createToolDefinitions({
+    store,
+    onPrepareListing: (input) => { preparedInput = input; },
+  });
+  const output = await executeLocalTool(definitions, "list_community_tool", {
+    name: "Soldering iron",
+    neighborhood: "Anna Nagar",
+    pricePerDay: 40,
+    deposit: 300,
+  });
+  assert.equal(JSON.parse(output).requiresUserAction, true);
+  assert.equal(preparedInput.name, "Soldering iron");
+  assert.equal(store.getState().tools.length, before);
 });
 
 test("read-only search returns structured results and updates the visible-results seam", async () => {
@@ -106,7 +126,7 @@ test("registration degrades cleanly when the browser does not implement WebMCP",
     store: createStore(memoryStorage()),
   });
   assert.equal(result.supported, false);
-  assert.equal(result.definitions.length, 6);
+  assert.equal(result.definitions.length, 7);
   assert.match(result.reason, /not enabled/i);
 });
 
@@ -119,7 +139,7 @@ test("registration uses document.modelContext.registerTool for every imperative 
   };
   const result = await registerWebMCP({ documentRef, store: createStore(memoryStorage()) });
   assert.equal(result.supported, true);
-  assert.equal(calls.length, 6);
+  assert.equal(calls.length, 7);
   assert.equal(calls[0].definition.name, "search_community_tools");
   assert.ok(calls.every((call) => call.options.signal instanceof AbortSignal));
   result.dispose();
