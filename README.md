@@ -23,7 +23,7 @@ The agent can call `search_community_tools`, `check_tool_availability`, and `res
 - Date-aware reservations with overlap protection.
 - Visible human confirmation before agent or user reservations and cancellations.
 - “My borrowing” view with reservation source and status.
-- Declarative WebMCP listing form that remains visible for manual review and submission.
+- Approval-oriented listing tool that fills a visible form and waits for manual review and publication.
 - Local-first persistence and a one-click demo reset.
 - Built-in guided agent demonstration that uses the same tool handlers as native WebMCP.
 - PWA manifest, offline app shell, strict content-security policy, responsive navigation, keyboard focus states, and reduced-motion support.
@@ -40,7 +40,7 @@ The imperative tools are registered through `document.modelContext.registerTool(
 | `reserve_tool` | Write | Prepare a reservation, then wait for visible human approval. |
 | `list_my_reservations` | Read-only | Return current and previous reservations. |
 | `cancel_reservation` | Write | Prepare a cancellation, then wait for visible human approval. |
-| `list_community_tool` | Declarative | Populate the visible listing form; the user manually publishes it. |
+| `list_community_tool` | Write | Populate the visible listing form; the user manually publishes it. |
 
 Read-only and untrusted-content annotation hints are included following the current WebMCP security guidance. Tool descriptions and outputs stay within the recommended character budgets. Tools are same-origin only.
 
@@ -71,7 +71,7 @@ Node.js 20 or newer is recommended.
 
 Use either:
 
-1. ChatGPT’s in-app browser, which supports WebMCP; or
+1. ChatGPT’s in-app browser using GPT-5.6 Sol or Terra with Site Tools enabled; or
 2. Google Chrome 149 or later with `chrome://flags/#enable-webmcp-testing` enabled, followed by a browser restart.
 
 Open the app and ask the browser agent to search for a shared tool. If WebMCP is unavailable, the status reads **Preview** and the “Run the guided agent demo” button exercises the exact same definitions locally.
@@ -102,7 +102,7 @@ js/store.js             State, validation, persistence, and availability
 js/webmcp.js            Imperative WebMCP tool definitions and registration
 js/app.js               Accessible interface and human-confirmation flows
 tests/                  Node contract and behavior tests
-index.html              Human UI and declarative WebMCP form
+index.html              Human UI and agent-prepared listing form
 styles.css              Responsive visual system
 service-worker.js       Offline app-shell cache
 ```

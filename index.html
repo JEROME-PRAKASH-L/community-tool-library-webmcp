@@ -320,11 +320,7 @@
     </dialog>
 
     <dialog class="modal listing-modal" id="listing-dialog" aria-labelledby="listing-title">
-      <form
-        id="list-tool-form"
-        toolname="list_community_tool"
-        tooldescription="Fill in a new community tool listing. The user reviews and manually submits the visible form."
-      >
+      <form id="list-tool-form">
         <button class="modal-close" type="button" data-close-dialog aria-label="Close listing form">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
         </button>
@@ -335,39 +331,39 @@
         <div class="form-grid">
           <label class="field field-wide">
             <span>Tool name</span>
-            <input name="name" required minlength="3" maxlength="80" placeholder="e.g. Cordless drill" toolparamdescription="Clear name of the tool being offered." />
+            <input name="name" required minlength="3" maxlength="80" placeholder="e.g. Cordless drill" />
           </label>
           <label class="field">
             <span>Category</span>
-            <select name="category" required toolparamdescription="Best matching tool category.">
+            <select name="category" required>
               <option>Power tools</option><option>Home &amp; repair</option><option>Creative</option><option>Electronics</option><option>Garden</option><option>Mobility</option>
             </select>
           </label>
           <label class="field">
             <span>Condition</span>
-            <select name="condition" required toolparamdescription="Current physical condition of the tool.">
+            <select name="condition" required>
               <option>Excellent</option><option>Very good</option><option>Good</option>
             </select>
           </label>
           <label class="field field-wide">
             <span>Description</span>
-            <textarea name="description" required minlength="10" maxlength="360" rows="4" placeholder="What is included, and what jobs is it suitable for?" toolparamdescription="Useful description including accessories and suitable tasks."></textarea>
+            <textarea name="description" required minlength="10" maxlength="360" rows="4" placeholder="What is included, and what jobs is it suitable for?"></textarea>
           </label>
           <label class="field">
             <span>Pickup area</span>
-            <input name="neighborhood" required maxlength="60" placeholder="Neighbourhood" toolparamdescription="Public neighbourhood for pickup, not an exact address." />
+            <input name="neighborhood" required maxlength="60" placeholder="Neighbourhood" />
           </label>
           <label class="field">
             <span>Daily contribution (₹)</span>
-            <input name="pricePerDay" type="number" min="0" max="5000" value="50" required toolparamdescription="Daily contribution in Indian rupees." />
+            <input name="pricePerDay" type="number" min="0" max="5000" value="50" required />
           </label>
           <label class="field">
             <span>Refundable deposit (₹)</span>
-            <input name="deposit" type="number" min="0" max="20000" value="500" required toolparamdescription="Refundable security deposit in Indian rupees." />
+            <input name="deposit" type="number" min="0" max="20000" value="500" required />
           </label>
           <label class="field field-wide">
             <span>Care instructions</span>
-            <input name="rules" maxlength="180" placeholder="e.g. Return fully charged" toolparamdescription="Short handling or return instructions." />
+            <input name="rules" maxlength="180" placeholder="e.g. Return fully charged" />
           </label>
         </div>
         <div class="form-privacy-note">

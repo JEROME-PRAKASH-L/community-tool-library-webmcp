@@ -51,6 +51,7 @@ export function createToolDefinitions({
   store,
   requestConfirmation = async () => false,
   onSearchResults = () => {},
+  onPrepareListing = () => {},
   onToolActivity = () => {},
 }) {
   const record = (name, detail, status = "success") => {
@@ -240,6 +241,45 @@ export function createToolDefinitions({
         store.cancelReservation(reservationId, "agent");
         record("cancel_reservation", `Cancelled ${tool?.name || reservationId}`);
         return toolResult(JSON.stringify({ cancelled: true, reservationId }));
+      },
+    },
+    {
+      name: "list_community_tool",
+      title: "Prepare a community tool listing",
+      description: "Fill the visible new-listing form with the supplied details. The user must review the form and click Publish before any listing is created.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          name: { type: "string", minLength: 3, maxLength: 80, description: "Clear name of the tool being offered." },
+          category: {
+            type: "string",
+            enum: ["Power tools", "Home & repair", "Creative", "Electronics", "Garden", "Mobility"],
+            description: "Best matching tool category.",
+          },
+          condition: {
+            type: "string",
+            enum: ["Excellent", "Very good", "Good"],
+            description: "Current physical condition of the tool.",
+          },
+          description: { type: "string", minLength: 10, maxLength: 360, description: "What is included and which jobs the tool suits." },
+          neighborhood: { type: "string", maxLength: 60, description: "Public pickup neighbourhood, never an exact address." },
+          pricePerDay: { type: "number", minimum: 0, maximum: 5000, description: "Daily contribution in Indian rupees." },
+          deposit: { type: "number", minimum: 0, maximum: 20000, description: "Refundable deposit in Indian rupees." },
+          rules: { type: "string", maxLength: 180, description: "Optional handling or return instructions." },
+        },
+        required: ["name"],
+        additionalProperties: false,
+      },
+      annotations: { readOnlyHint: false, untrustedContentHint: true },
+      execute: async (input = {}) => {
+        onPrepareListing(input);
+        record("list_community_tool", `Prepared listing form for ${input.name}`);
+        return toolResult(JSON.stringify({
+          prepared: true,
+          toolName: input.name,
+          requiresUserAction: true,
+          nextStep: "Review the visible form and click Publish tool to create the listing.",
+        }));
       },
     },
   ];

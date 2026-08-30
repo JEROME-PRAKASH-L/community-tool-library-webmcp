@@ -31,7 +31,7 @@ Show the live homepage already loaded.
 
 - Open `js/webmcp.js` in GitHub.
 - Show `document.modelContext.registerTool`, the JSON schema, annotations, and confirmation callback.
-- Briefly show the declarative `list_community_tool` form in `index.html`.
+- Briefly show the imperative `list_community_tool` definition filling the reviewable form.
 
 ## 2:20–2:45 — Safety and graceful fallback
 
