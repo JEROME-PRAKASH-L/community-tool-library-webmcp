@@ -1,4 +1,4 @@
-name: Validate static site
+name: Validate and deploy static site
 
 on:
   push:
@@ -6,8 +6,13 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: validate-${{ github.ref }}
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -19,3 +24,19 @@ jobs:
           node-version: 20
       - name: Check JavaScript and behavior contracts
         run: npm run check
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
